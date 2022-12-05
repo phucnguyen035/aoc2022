@@ -1,5 +1,6 @@
-const file = await Deno.readFile("input.txt");
-const input = new TextDecoder().decode(file);
+import { getInputFromFile } from "./helper.ts";
+
+const input = await getInputFromFile();
 const array = input.split("\n");
 const elves = array.reduce(
   (acc, curr) => {
