@@ -15,9 +15,17 @@ const elves = array.reduce(
   [0]
 );
 
-const sum = elves
-  .sort((a, b) => b - a)
-  .slice(0, 3)
-  .reduce((a, b) => a + b, 0);
+(() => {
+  const sum = elves.sort((a, b) => b - a).at(0);
 
-console.log("sum: ", sum);
+  console.log("challenge1: ", sum);
+})();
+
+(() => {
+  const sum = elves
+    .sort((a, b) => b - a)
+    .slice(0, 3)
+    .reduce((a, b) => a + b, 0);
+
+  console.log("challenge2: ", sum);
+})();
