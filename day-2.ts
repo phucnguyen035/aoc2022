@@ -90,26 +90,23 @@ const rounds = input.split("\n");
     ];
 
     const desiredResult = resultMap[result];
-    const roundPoints = points[desiredResult];
-    let actualPoints = 0;
+    let roundPoints = points[desiredResult];
 
     switch (desiredResult) {
       case "draw":
-        actualPoints = roundPoints + pointsByOpponentShape[opponentShape];
+        roundPoints += pointsByOpponentShape[opponentShape];
         break;
       case "win":
-        actualPoints =
-          roundPoints + pointsByOpponentShape[shapeToBeat[opponentShape]];
+        roundPoints += pointsByOpponentShape[shapeToBeat[opponentShape]];
         break;
       case "loss":
-        actualPoints =
-          roundPoints + pointsByOpponentShape[shapeToLose[opponentShape]];
+        roundPoints += pointsByOpponentShape[shapeToLose[opponentShape]];
         break;
       default:
         break;
     }
 
-    return (acc += actualPoints);
+    return (acc += roundPoints);
   }, 0);
 
   console.log("challenge 2: ", total);
