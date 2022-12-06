@@ -3,7 +3,7 @@ import { getInputFromFile } from "./helper.ts";
 const items = await getInputFromFile(true);
 
 const alphabetArray = "abcdefghijklmnopqrstuvwxyz".split("");
-const calculatePoints = (item: string) => {
+const calculatePoints = (item: string): number => {
   return alphabetArray.includes(item)
     ? alphabetArray.indexOf(item) + 1
     : alphabetArray.indexOf(item.toLowerCase()) + 1 + 26;
