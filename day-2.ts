@@ -1,6 +1,6 @@
 import { getInputFromFile } from "./helper.ts";
 
-const input = await getInputFromFile();
+const rounds = await getInputFromFile(true);
 
 const points = {
   win: 6,
@@ -13,8 +13,6 @@ const pointsByOpponentShape = {
   B: 2,
   C: 3,
 } as const;
-
-const rounds = input.split("\n");
 
 (() => {
   const pointsByUserShape = {

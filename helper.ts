@@ -1,4 +1,9 @@
-export async function getInputFromFile() {
+export async function getInputFromFile(): Promise<string>;
+export async function getInputFromFile(split?: boolean): Promise<string[]>;
+
+export async function getInputFromFile(split = false) {
   const file = await Deno.readFile("input.txt");
-  return new TextDecoder().decode(file);
+  const input = new TextDecoder().decode(file);
+
+  return split ? input.split("\n") : input;
 }
