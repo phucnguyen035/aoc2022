@@ -9,14 +9,29 @@ const calculatePoints = (item: string) => {
     : alphabetArray.indexOf(item.toLowerCase()) + 1 + 26;
 };
 
+const getItemTypeRecursion = (
+  groups: string[],
+  index: number,
+  maxIndex: number,
+  previousSet?: Set<string>
+): string => {
+  if (index === maxIndex) {
+    return previousSet?.values().next().value;
+  }
+
+  const set = previousSet ?? new Set(groups[0].split(""));
+  const value = groups[index].split("").filter((item) => set.has(item));
+  const nextSet = new Set(value);
+
+  return getItemTypeRecursion(groups, index + 1, maxIndex, nextSet);
+};
+
 (() => {
   const sum = items.reduce((acc, curr) => {
     const half = curr.length / 2;
-    const [first, second] = [curr.slice(0, half), curr.slice(half)];
-
-    const firstSet = new Set(first.split(""));
-    const itemMatch = second.split("").find((item) => firstSet.has(item))!;
-    const points = calculatePoints(itemMatch);
+    const groups = [curr.slice(0, half), curr.slice(half)];
+    const item = getItemTypeRecursion(groups, 0, groups.length);
+    const points = calculatePoints(item);
 
     return (acc += points);
   }, 0);
@@ -25,23 +40,6 @@ const calculatePoints = (item: string) => {
 })();
 
 (() => {
-  const getItemTypeRecursion = (
-    groups: string[],
-    index: number,
-    maxIndex: number,
-    previousSet?: Set<string>
-  ): string => {
-    if (index === maxIndex) {
-      return previousSet?.values().next().value;
-    }
-
-    const set = previousSet ?? new Set(groups[0].split(""));
-    const value = groups[index].split("").filter((item) => set.has(item));
-    const nextSet = new Set(value);
-
-    return getItemTypeRecursion(groups, index + 1, maxIndex, nextSet);
-  };
-
   // Group items by every 3 items
   const grouped = items.reduce((acc, curr, index) => {
     if (index % 3 === 0) {
